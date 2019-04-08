@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		FE4B8E14225A9F4500D5D0A4 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B8E13225A9F4500D5D0A4 /* main.swift */; };
 		FE4B8E1B225AA14000D5D0A4 /* argumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B8E1A225AA14000D5D0A4 /* argumentParser.swift */; };
+		FE4B8E1E225BE6A200D5D0A4 /* bracketCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B8E1D225BE6A200D5D0A4 /* bracketCount.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,7 @@
 		FE4B8E13225A9F4500D5D0A4 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		FE4B8E1A225AA14000D5D0A4 /* argumentParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = argumentParser.swift; sourceTree = "<group>"; };
 		FE4B8E1C225B576400D5D0A4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		FE4B8E1D225BE6A200D5D0A4 /* bracketCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bracketCount.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			children = (
 				FE4B8E13225A9F4500D5D0A4 /* main.swift */,
 				FE4B8E1A225AA14000D5D0A4 /* argumentParser.swift */,
+				FE4B8E1D225BE6A200D5D0A4 /* bracketCount.swift */,
 			);
 			path = calculateBrackets;
 			sourceTree = "<group>";
@@ -124,6 +127,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE4B8E1E225BE6A200D5D0A4 /* bracketCount.swift in Sources */,
 				FE4B8E14225A9F4500D5D0A4 /* main.swift in Sources */,
 				FE4B8E1B225AA14000D5D0A4 /* argumentParser.swift in Sources */,
 			);
