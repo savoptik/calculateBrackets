@@ -9,3 +9,5 @@
 import Foundation
 
 let argv = ProcessInfo.processInfo.arguments
+let mode = ArgumentParser.init(argumentArray: argv)
+
