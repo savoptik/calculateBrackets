@@ -16,18 +16,18 @@ import Foundation
 /// - commas: кавычки
 /// - apostrophes: апострофы
 enum BracketType: String {
-    case parenthesis
-    case squareBrackets
-    case brace
-    case commas
-    case apostrophes
+    case parenthesis = "Круглые"
+    case squareBrackets = "Квадратные"
+    case brace = "Фигурные"
+    case commas = "Ковычки"
+    case apostrophes = "Апострофы"
 }
 
 /// Счётчик скобочек
 class BracketCount {
     private let bracketType: BracketType // тип скобочек
     private var brackets: [Character]
-    private var numberOfPairsOfBrackets: Int = 0 // Количество парных скобок
+    private var numberOfPairsOfBrackets: Int = 0, numberNoPairOfBrackets: Int = 0 // Количество парных скобок
     private var levt: Int = 0, right: Int = 0
 
     /// Конструктор класса
@@ -78,16 +78,17 @@ class BracketCount {
             }
         }
         if self.levt == self.right { // если количество скобок сровнялось
-            return 0 // непарных скобок нет
+            self.numberNoPairOfBrackets = 0 // непарных скобок нет
         } else { // иначе
-            return self.levt - self.right // иначе возвращаем количество непарных скобок
+            self.numberNoPairOfBrackets = self.levt - self.right // иначе возвращаем количество непарных скобок
         }
+        return self.numberNoPairOfBrackets
     }
 
     /// Получить количество парных скобок
     ///
     /// - Returns: количество парных скобок
-    private func getNumberOfPairsOfBrackets() -> Int {
+    public func getNumberOfPairsOfBrackets() -> Int {
         return self.numberOfPairsOfBrackets
     }
 
@@ -103,5 +104,13 @@ class BracketCount {
     /// - Returns: Количество правых скобок
     public func rightBrackets() -> Int {
         return self.right
+    }
+
+    public func getNumberNoParBrackets() -> Int {
+        return self.numberNoPairOfBrackets
+    }
+
+    public func getBracketType() -> String {
+        return self.bracketType.rawValue
     }
 }
