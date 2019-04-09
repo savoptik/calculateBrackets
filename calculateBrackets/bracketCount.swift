@@ -28,6 +28,7 @@ class BracketCount {
     private let bracketType: BracketType // тип скобочек
     private var brackets: [Character]
     private var numberOfPairsOfBrackets: Int = 0 // Количество парных скобок
+    private var levt: Int = 0, right: Int = 0
 
     /// Конструктор класса
     ///
@@ -35,7 +36,7 @@ class BracketCount {
     ///   - bracket: Тип скобочек
     public init(bracket: BracketType) {
         self.bracketType = bracket
-        switch self.bracketType {
+        switch self.bracketType { // В зависимости от перечисленич получаем символы
         case .parenthesis:
             self.brackets = ["(", ")"]
 
@@ -58,7 +59,7 @@ class BracketCount {
     /// - Parameter filePath: путь к файлу
     /// - Returns: Количество не парных скобок
     public func calculateBrackets(puth filePath: String) -> Int {
-        return self.calculateBrackets(text: try! String.init(contentsOf: URL.init(string: filePath)!))
+        return self.calculateBrackets(text: try! String.init(contentsOf: URL.init(string: filePath)!)) // возвращаем результат подсчёта скобок в строке
     }
 
     /// Подсчитать скобки
@@ -66,21 +67,21 @@ class BracketCount {
     /// - Parameter textString: Строка с текстом
     /// - Returns: Количество Не парных скобок
     public func calculateBrackets(text textString: String) -> Int {
-        var noParBrackets:  Int = 0
-        for c in textString {
-            if c == self.brackets[0] {
-                noParBrackets += 1
-                if noParBrackets == 0 {
-                    self.numberOfPairsOfBrackets += 1
-                }
-            } else if c == self.brackets[1] {
-                noParBrackets -= 1
-                if noParBrackets == 0 {
-                    self.numberOfPairsOfBrackets += 1
+        for c in textString { // перебираем символы
+            if c == self.brackets[0] { // если скобка отрывающая
+                self.levt += 1 // увиличить количество левых скобок
+            } else if c == self.brackets[1] { // если скобка правая
+                self.right += 1 // увиличиваем количество правых скобок
+                if self.levt == self.right { // если количество скобок сровнялось
+                    self.numberOfPairsOfBrackets += 1 // увиличиваем количество парных скобок
                 }
             }
         }
-        return noParBrackets
+        if self.levt == self.right { // если количество скобок сровнялось
+            return 0 // непарных скобок нет
+        } else { // иначе
+            return self.levt - self.right // иначе возвращаем количество непарных скобок
+        }
     }
 
     /// Получить количество парных скобок
@@ -88,5 +89,19 @@ class BracketCount {
     /// - Returns: количество парных скобок
     private func getNumberOfPairsOfBrackets() -> Int {
         return self.numberOfPairsOfBrackets
+    }
+
+    /// Количество левых скобок
+    ///
+    /// - Returns: количество левых скобок
+    public func levtBrackets() -> Int {
+        return self.levt
+    }
+
+    /// Количество правых скобок
+    ///
+    /// - Returns: Количество правых скобок
+    public func rightBrackets() -> Int {
+        return self.right
     }
 }
