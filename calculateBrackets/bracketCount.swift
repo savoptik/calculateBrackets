@@ -16,11 +16,11 @@ import Foundation
 /// - commas: кавычки
 /// - apostrophes: апострофы
 enum BracketType: String {
-    case parenthesis = "Круглые"
-    case squareBrackets = "Квадратные"
-    case brace = "Фигурные"
-    case commas = "Ковычки"
-    case apostrophes = "Апострофы"
+    case parenthesis = "()"
+    case squareBrackets = "[]"
+    case brace = "{}}"
+    case commas = "\"\""
+    case apostrophes = "\'\'"
 }
 
 /// Счётчик скобочек
@@ -58,8 +58,13 @@ class BracketCount {
     ///
     /// - Parameter filePath: путь к файлу
     /// - Returns: Количество не парных скобок
-    public func calculateBrackets(puth filePath: String) -> Int {
-        return self.calculateBrackets(text: try! String.init(contentsOf: URL.init(string: filePath)!)) // возвращаем результат подсчёта скобок в строке
+    public func calculateBrackets(puth filePath: String) -> Int? {
+        if let urlPath = URL.init(string: filePath) {
+            let str = try! String.init(contentsOf: urlPath)
+            return self.calculateBrackets(text: str) // возвращаем результат подсчёта скобок в строке
+        } else {
+            return nil
+        }
     }
 
     /// Подсчитать скобки
@@ -68,7 +73,11 @@ class BracketCount {
     /// - Returns: Количество Не парных скобок
     public func calculateBrackets(text textString: String) -> Int {
         for c in textString { // перебираем символы
-            if c == self.brackets[0] { // если скобка отрывающая
+            if self.brackets[0] == self.brackets[1] {
+                if c == self.brackets[0] {
+                    self.levt += 1
+                }
+            } else if c == self.brackets[0] { // если скобка отрывающая
                 self.levt += 1 // увиличить количество левых скобок
             } else if c == self.brackets[1] { // если скобка правая
                 self.right += 1 // увиличиваем количество правых скобок
@@ -76,6 +85,12 @@ class BracketCount {
                     self.numberOfPairsOfBrackets += 1 // увиличиваем количество парных скобок
                 }
             }
+        }
+        if self.brackets[0] == self.brackets[1] {
+            print("Вошёл")
+            self.right = self.levt - 1
+            self.numberOfPairsOfBrackets = self.levt / 2
+            self.levt -= 1
         }
         if self.levt == self.right { // если количество скобок сровнялось
             self.numberNoPairOfBrackets = 0 // непарных скобок нет

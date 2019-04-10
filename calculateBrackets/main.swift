@@ -12,7 +12,7 @@ let argv = ProcessInfo.processInfo.arguments
 let mode = ArgumentParser.init(argumentArray: argv)
 if mode.getRuneMode() != .errar {
     var counters: [BracketCount] = []
-    var noPars: [Int] = []
+    var noPars: [Int?] = []
     counters.append(BracketCount.init(bracket: .parenthesis)) // круглые скобки
     counters.append(BracketCount.init(bracket: .squareBrackets)) // квадратные скобки
     counters.append(BracketCount.init(bracket: .brace)) // Фигурные скобки
@@ -32,8 +32,12 @@ if mode.getRuneMode() != .errar {
     default:
         print("© Artem Semenov")
     }
-    print("Тип       Пары Непарные Левые Правые")
-    for counter in counters {
-        print("\(counter.getBracketType()) \(counter.getNumberOfPairsOfBrackets()) \(counter.getNumberNoParBrackets()) \(counter.levtBrackets()) \(counter.rightBrackets())")
+    if let num = noPars[0] {
+        print("<> П Н Л П")
+        for counter in counters {
+            print("\(counter.getBracketType()) \(counter.getNumberOfPairsOfBrackets()) \(counter.getNumberNoParBrackets()) \(counter.levtBrackets()) \(counter.rightBrackets())")
+        }
+    } else {
+        print("Не удалось прочесть файл")
     }
 }
