@@ -60,8 +60,22 @@ class BracketCount {
     /// - Returns: Количество не парных скобок
     public func calculateBrackets(puth filePath: String) -> Int? {
         if let urlPath = URL.init(string: filePath) {
-            let str = try! String.init(contentsOf: urlPath)
+            let fileName = urlPath.pathComponents.last!
+            let nameAndExstention = fileName.split(separator: ".")
+            var derPath = urlPath.path
+            let ins = fileName.indices
+            let range = derPath.index(derPath.endIndex, offsetBy: -ins.count)..<derPath.endIndex
+            derPath.removeSubrange(range)
+            if let bundle = Bundle.init(path: derPath) {
+            if let newURL = bundle.url(forResource: String(nameAndExstention[0]), withExtension: String(nameAndExstention[1])) {
+            let str = try! String.init(contentsOf: newURL)
             return self.calculateBrackets(text: str) // возвращаем результат подсчёта скобок в строке
+                } else {
+                return nil
+            }
+            } else {
+                return nil
+            }
         } else {
             return nil
         }
@@ -87,10 +101,9 @@ class BracketCount {
             }
         }
         if self.brackets[0] == self.brackets[1] {
-            print("Вошёл")
-            self.right = self.levt - 1
             self.numberOfPairsOfBrackets = self.levt / 2
-            self.levt -= 1
+            self.right = self.numberOfPairsOfBrackets
+            self.levt -= self.right
         }
         if self.levt == self.right { // если количество скобок сровнялось
             self.numberNoPairOfBrackets = 0 // непарных скобок нет
